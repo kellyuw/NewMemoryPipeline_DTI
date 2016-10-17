@@ -97,17 +97,11 @@ xfm_dir/dti_FA_brain_to_MNI_r_Warped.nii.gz: dti/dtifit/dti_FA_brain.nii.gz
 	antsRegistrationSyN.sh -d 3 -t r -f /usr/share/fsl/data/standard/MNI152_T1_2mm_brain.nii.gz -m dti/dtifit/dti_FA_brain.nii.gz -o xfm_dir/dti_FA_brain_to_MNI_r_ ;\
 
 ## 5. Do QA on images
-QA/dtiprep/dwi_fixed_QCReport.txt: dti/DTI64.nii.gz
-	bash /mnt/stressdevlab/new_memory_pipeline/DTI/ConvertNRRD_DTIPrep.sh $(SUBJECT)
-
 QA/DTI64_QASummary.txt: dti/mc_dti/mc_DTI64.nii.gz dti/DTI64.bvals dti/mc_dti/bvec_mc.txt dti/mc_dti/mc_DTI64_brain.nii.gz
 	sed -e 's|\.0||g' $(word 2,$^) > dti/DTI64.bvals.new ;\
 	/mnt/stressdevlab/scripts/DTI/QA/qa_dti1.sh $(SubjDir)/$(word 1,$^) $(SubjDir)/dti/DTI64.bvals.new $(SubjDir)/$(word 3,$^) $(SubjDir)/$(word 4,$^) $@ ;\
 
-QA/slicecorr.png: dti/mc_dti/mc_DTI64.nii.gz dti/DTI64.bvals
-	python /mnt/stressdevlab/scripts/DTI/QA/dtiprep.py -f $(SubjDir)/dti/DTI64.nii.gz
-
-QA/QA_Metrics.txt: QA/DTI64_QASummary.txt dti/mc_dti/mc_DTI64_brain.nii.gz
+QA/QA_Metrics.txt: QA/DTI64_QASummary.txt dti/mc_dti/mc_DTI64.nii.gz
 	bash /mnt/stressdevlab/scripts/DTI/QA/ParseQAReport.sh $(SUBJECT)
 
 ## 6. Register to MNI space
