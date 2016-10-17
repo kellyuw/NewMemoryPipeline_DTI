@@ -91,7 +91,7 @@ dti/dtifit/dti_FA_brain.nii.gz: xfm_dir/T1_brain_mask_to_FA_r_Warped.nii.gz dti/
 	fslmaths dti/dtifit/dti_FA.nii.gz -mas xfm_dir/T1_brain_mask_to_FA_r_Warped.nii.gz $@ ;\
 
 dti/mc_dti/mc_DTI64_brain.nii.gz: dti/mc_dti/mc_DTI64.nii.gz dti/dtifit/dti_FA_brain.nii.gz
-	fslmaths dti/mc_dti/mc_DTI64.nii.g -mas dti/dtifit/dti_FA_brain.nii.gz $@;\
+	fslmaths dti/mc_dti/mc_DTI64.nii.gz -mas dti/dtifit/dti_FA_brain.nii.gz $@;\
 
 xfm_dir/dti_FA_brain_to_MNI_r_Warped.nii.gz: dti/dtifit/dti_FA_brain.nii.gz
 	antsRegistrationSyN.sh -d 3 -t r -f /usr/share/fsl/data/standard/MNI152_T1_2mm_brain.nii.gz -m dti/dtifit/dti_FA_brain.nii.gz -o xfm_dir/dti_FA_brain_to_MNI_r_ ;\
