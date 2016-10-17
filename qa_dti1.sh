@@ -1,0 +1,1 @@
+/mnt/stressdevlab/scripts/DTI/QA/qa_dti1.sh
